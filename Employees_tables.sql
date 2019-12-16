@@ -1,41 +1,59 @@
 CREATE TABLE Employees (
-	EmployeeID int PK NOT NULL,
-	BirthDate date,
-  	FirstName VARCHAR(50) NOT NULL,
-  	LastName VARCHAR(50) NOT NULL,
-  	Gender SET(M,F,U),
-  	HireDate date NOT NULL
+	EmployeeID INT not NULL PRIMARY KEY,
+	BirthDate DATE,
+  	FirstName VARCHAR(50) not NULL,
+  	LastName VARCHAR(50) not NULL,
+  	Gender VARCHAR(1),
+  	HireDate DATE not NULL
 	);
 
 CREATE TABLE Departments (
-	DeptID PK int NOT NULL,
-	DeptName varchar(50)
+	DeptID VARCHAR(10) not NULL PRIMARY KEY,
+	DeptName VARCHAR(50)
 	);
 
 CREATE TABLE DeptEmployees (
-	EmployeeID int FK >- e.EmployeeID,
-	DeptID int FK >- d.DeptID,
-	FromDate date,
-	ToDate date
+	EmployeeID INT not NULL,
+	DeptID VARCHAR(10) not NULL,
+	FromDate DATE,
+	ToDate DATE,
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+	FOREIGN KEY (DeptID) REFERENCES Departments(DeptID)
 	);
 
 CREATE TABLE DeptManager (
-	DeptID int FK >- d.DeptID,
-	EmployeeID int FK >- e.EmployeeID,
-	FromDate date,
-	ToDate date
+	DeptID VARCHAR(10) not NULL,
+	FOREIGN KEY (DeptID) REFERENCES Departments(DeptID),
+	EmployeeID INT not NULL,
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+	FromDate DATE,
+	ToDate DATE
 	);
 
 CREATE TABLE Salaries (
-	EmployeeID int FK >- e.EmployeeID,
-	Salary int,
-	FromDate date,
-	ToDate date
+	EmployeeID INT not NULL,
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+	Salary INT,
+	FromDate DATE,
+	ToDate DATE
 	);
 
 CREATE TABLE Titles (
-	EmployeeID int FK >- e.EmployeeID,
-	Title varchar(50),
-	FromDate date,
-	ToDate date
+	EmployeeID INT not NULL,
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+	Title VARCHAR(50),
+	FromDate DATE,
+	ToDate DATE
 	);
+	
+Select * from Employees
+
+Select * from Departments
+
+Select * from DeptEmployees
+
+Select * from DeptManager
+
+Select * from Salaries
+
+Select * from Titles
